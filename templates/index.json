@@ -3,18 +3,36 @@
     "slideshow": {
       "type": "section-slideshow",
       "blocks": {
+        "slide_halloween_bundle": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/bozal-real-1_8835c9de-2609-42e9-8347-a59d1bd35ebb.jpg",
+            "video_url": "",
+            "overlay_color": "#0a0006",
+            "overlay_opacity": 45,
+            "content_alignment": "left",
+            "heading": "🎃 Halloween Bundle — Save $35",
+            "heading_color": "#ffffff",
+            "heading_size": "h1",
+            "subtext": "Costume + Muzzle. The viral pet combo of 2026. Limited stock — ships before Oct 31.",
+            "subtext_color": "#ffffff",
+            "button_label": "Get the Bundle — $29.95",
+            "button_link": "shopify://products/halloween-pet-bundle-muzzle-costume",
+            "button_style": "primary"
+          }
+        },
         "slide_8PHNGt": {
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/comedero.2.png",
             "video_url": "",
             "overlay_color": "#090412",
-            "overlay_opacity": 0,
+            "overlay_opacity": 40,
             "content_alignment": "left",
-            "heading": "Everyday Essentials for Dogs",
+            "heading": "Premium Gear for Your Dog",
             "heading_color": "#ffffff",
             "heading_size": "h1",
-            "subtext": "Explore food, toys and accessories for your dog.",
+            "subtext": "Tactical collars, no-pull harnesses and walking gear built to last.",
             "subtext_color": "#ffffff",
             "button_label": "Shop Dog Essentials",
             "button_link": "shopify://collections/dog-supplies",
@@ -27,38 +45,20 @@
             "image": "shopify://shop_images/ChatGPT_Image_Sep_27_2026_09_48_51_AM.png",
             "video_url": "",
             "overlay_color": "#090412",
-            "overlay_opacity": 0,
+            "overlay_opacity": 40,
             "content_alignment": "left",
-            "heading": "Comfort for Cats",
+            "heading": "Comfort for Every Cat",
             "heading_color": "#ffffff",
             "heading_size": "h1",
-            "subtext": "Browse beds and rest essentials for your pet.",
+            "subtext": "Calming beds, laser toys and everything your cat loves.",
             "subtext_color": "#ffffff",
             "button_label": "Shop Cat Essentials",
-            "button_link": "shopify://collections/beds-rest",
-            "button_style": "primary"
-          }
-        },
-        "slide_rHAfnp": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_Sep_27_2026_09_55_05_AM.png",
-            "video_url": "",
-            "overlay_color": "#1c0d07",
-            "overlay_opacity": 4,
-            "content_alignment": "left",
-            "heading": "🎃 Halloween Costumes for Pets",
-            "heading_color": "#ffffff",
-            "heading_size": "h1",
-            "subtext": "Make your pet the star of Halloween. Limited stock — ships by October 25.",
-            "subtext_color": "#ffffff",
-            "button_label": "Shop Halloween Costumes",
-            "button_link": "shopify://collections/halloween-especial",
+            "button_link": "shopify://collections/cat-supplies",
             "button_style": "primary"
           }
         }
       },
-      "block_order": ["slide_8PHNGt", "slide_XmWjCA", "slide_rHAfnp"],
+      "block_order": ["slide_halloween_bundle", "slide_8PHNGt", "slide_XmWjCA"],
       "settings": {
         "desktop_height": 800,
         "mobile_height": 700,
@@ -71,37 +71,19 @@
         "accessibility_info": "Hero slideshow"
       }
     },
-    "section_flash_sale_EdKAbq": {
-      "type": "section-flash-sale",
-      "name": "t:sections.flash_sale.presets.flash_sale.name",
-      "settings": {
-        "background_color": "",
-        "bg_color_left": "",
-        "discount_text": "20%",
-        "discount_image": "shopify://shop_images/mundo-peludo-hero-banner.png",
-        "countdown_date": "2026-10-31",
-        "countdown_time": "23:59:59",
-        "subheading": "Use code SPOOKY20 for 20% off — Offer ends October 31",
-        "heading_tag": "h2",
-        "heading": "🎃 Halloween Pet Sale",
-        "collection": "halloween-especial",
-        "products_limit": 12,
-        "image_aspect_ratio": "square"
-      }
-    },
     "marquee": {
       "type": "section-marquee",
       "blocks": {
         "slide_6wi6xY": { "type": "slide", "settings": { "text": "🎃 HALLOWEEN SALE — CODE SPOOKY20" } },
         "slide_iU7xmR": { "type": "slide", "settings": { "text": "FREE SHIPPING OVER $50" } },
-        "slide_BPAHwY": { "type": "slide", "settings": { "text": "EASY RETURNS" } },
+        "slide_BPAHwY": { "type": "slide", "settings": { "text": "30-DAY MONEY BACK GUARANTEE" } },
         "slide_TNNydb": { "type": "slide", "settings": { "text": "SECURE PAYMENT" } },
         "slide_h99wtc": { "type": "slide", "settings": { "text": "20% OFF — ENDS OCT 31" } },
-        "slide_R3m8dV": { "type": "slide", "settings": { "text": "FREE SHIPPING" } },
+        "slide_R3m8dV": { "type": "slide", "settings": { "text": "OVER 1,000 HAPPY PETS" } },
         "slide_ztRepd": { "type": "slide", "settings": { "text": "SHIPS WORLDWIDE" } },
         "slide_eTgTc8": { "type": "slide", "settings": { "text": "FAST DELIVERY" } }
       },
-      "block_order": ["slide_6wi6xY", "slide_iU7xmR", "slide_BPAHwY", "slide_TNNydb", "slide_h99wtc", "slide_R3m8dV", "slide_ztRepd", "slide_eTgTc8"],
+      "block_order": ["slide_6wi6xY","slide_iU7xmR","slide_BPAHwY","slide_TNNydb","slide_h99wtc","slide_R3m8dV","slide_ztRepd","slide_eTgTc8"],
       "settings": {
         "background_color": "",
         "padding_top": 30,
@@ -122,82 +104,22 @@
         "media_radius": 8
       }
     },
-    "collection": {
-      "type": "section-collection",
-      "blocks": {
-        "collection_card_XpRjaz": { "type": "collection_card", "settings": { "collection": "beds-rest", "custom_title": "", "custom_count": "" } },
-        "collection_card_pdiHHE": { "type": "collection_card", "settings": { "collection": "cat-supplies", "custom_title": "", "custom_count": "" } },
-        "collection_card_ajnAXf": { "type": "collection_card", "settings": { "collection": "dog-supplies", "custom_title": "", "custom_count": "" } },
-        "collection_card_mnxJyi": { "type": "collection_card", "settings": { "collection": "feeding-accessories", "custom_title": "", "custom_count": "" } }
-      },
-      "block_order": ["collection_card_XpRjaz", "collection_card_pdiHHE", "collection_card_ajnAXf", "collection_card_mnxJyi"],
+    "section_flash_sale_EdKAbq": {
+      "type": "section-flash-sale",
+      "name": "t:sections.flash_sale.presets.flash_sale.name",
       "settings": {
         "background_color": "",
-        "padding_bottom": 0,
-        "columns": "4",
-        "show_items_count": true,
-        "bottom_content_maxwidth": 800,
+        "bg_color_left": "",
+        "discount_text": "20%",
+        "discount_image": "shopify://shop_images/mundo-peludo-hero-banner.png",
+        "countdown_date": "2026-10-31",
+        "countdown_time": "23:59:59",
+        "subheading": "Use code SPOOKY20 for 20% off — Offer ends October 31",
         "heading_tag": "h2",
-        "bottom_title": "Shop by Category",
-        "bottom_paragraph": "Browse essentials for dogs, cats, feeding and rest.",
-        "button_label": "Explore All Collections",
-        "button_url": "shopify://collections",
-        "button_style": "primary"
-      }
-    },
-    "featured_products": {
-      "type": "section-featured-products",
-      "settings": {
-        "background_color": "",
-        "columns": "4",
-        "title": "Cat Essentials",
-        "heading_tag": "h2",
-        "link_label": "Shop Cat Essentials",
-        "link_url": "shopify://collections/cat-supplies",
-        "collection": "cat-supplies",
-        "products_limit": 8
-      }
-    },
-    "image_with_overlay_text": {
-      "type": "section-image-with-overlay-text",
-      "settings": {
-        "padding_top": 250,
-        "padding_bottom": 250,
-        "bg_image": "shopify://shop_images/comedero.2.png",
-        "show_overlay": true,
-        "overlay_color": "#090412",
-        "overlay_opacity": 40,
-        "show_heading": true,
-        "heading_tag": "h2",
-        "content_alignment": "center",
-        "heading": "Give Your Pet the Best",
-        "heading_color": "#ffffff",
-        "subtext": "<p>Premium products for dogs, cats and every pet in between. Free shipping over $50 — delivered to your door.</p>",
-        "subtext_color": "#ffffff",
-        "show_button": true,
-        "button_text": "Shop All Products",
-        "button_url": "shopify://collections/all",
-        "button_style": "primary",
-        "enable_parallax": true
-      }
-    },
-    "product_carousel_tabs": {
-      "type": "section-product-carousel-tabs",
-      "blocks": {
-        "tab_raLjij": { "type": "tab", "settings": { "tab_label": "Grooming & Care", "collection": "grooming-care" } },
-        "tab_XhpKzq": { "type": "tab", "settings": { "tab_label": "Walking Accessories", "collection": "walking-accessories" } },
-        "tab_W6Myzc": { "type": "tab", "settings": { "tab_label": "Toys", "collection": "toys" } }
-      },
-      "block_order": ["tab_raLjij", "tab_XhpKzq", "tab_W6Myzc"],
-      "settings": {
-        "background_color": "",
-        "padding_top": 90,
-        "heading": "Most Popular Products",
-        "heading_tag": "h2",
-        "subheading": "",
-        "heading_alignment": "left",
-        "products_per_tab": 12,
-        "slides_per_view": 4
+        "heading": "🎃 Halloween Pet Sale — Ends Oct 31",
+        "collection": "halloween-especial",
+        "products_limit": 12,
+        "image_aspect_ratio": "square"
       }
     },
     "trust_badges": {
@@ -219,8 +141,8 @@
             "icon_image": "shopify://shop_images/woman-with-white-crisp-shopping-carrier-bags.jpg",
             "icon_bg": "#090412",
             "icon_color": "",
-            "heading": "Satisfaction Guaranteed",
-            "paragraph": "30-day money back promise"
+            "heading": "30-Day Guarantee",
+            "paragraph": "Full refund, no questions asked"
           }
         },
         "badge_wcUcUr": {
@@ -252,23 +174,171 @@
         "columns": "4"
       }
     },
-    "philosophy": {
-      "type": "section-our-story",
+    "bestsellers_section": {
+      "type": "section-featured-products",
       "settings": {
-        "top_left": "shopify://shop_images/comedero-06-rosa_c2a17833-8312-4ca2-909a-55bd4135ce44.jpg",
-        "center_right": "shopify://shop_images/comedero-04-estudio_a40fb29c-5632-4057-8073-b7dc9fe6a562.jpg",
-        "bottom_part": "shopify://shop_images/tiktok-hook-rascador-gatos-xxl.png",
-        "subheading": "Our Story",
-        "heading_tag": "h2",
-        "heading": "Pet Happiness Starts Here",
-        "text": "<p>We believe every pet deserves products that are safe, fun and built to last. From our first order to your pet's first play session — we're with you every step.</p>",
-        "button_label": "Shop Now",
-        "button_url": "shopify://collections/walking-accessories",
-        "subheading_color": "",
-        "heading_color": "",
-        "text_color": "",
         "background_color": "",
-        "padding_top": 100
+        "columns": "4",
+        "title": "🔥 Bestsellers",
+        "heading_tag": "h2",
+        "link_label": "Shop All Products",
+        "link_url": "shopify://collections/all",
+        "collection": "all",
+        "products_limit": 8
+      }
+    },
+    "loox_carousel_homepage": {
+      "type": "apps",
+      "blocks": {
+        "loox_reviews_loox_card_carousel_section_w7Kcx4": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-card-carousel-section/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "maxWidth": 1100,
+            "borderRadius": 8,
+            "itemsPerView": 4,
+            "mobileItemsPerView": 1,
+            "maxNumberOfCharacters": 100,
+            "imageRatio": "0.72",
+            "reviewerNameColor": "#000000",
+            "textColor": "#000000",
+            "itemBackgroundColor": "#ffffff",
+            "starsColor": "",
+            "starsBackgroundColor": "#ffffff",
+            "arrows_backgroundColor": "#ffffff",
+            "arrows_iconColor": "#9a9a9a",
+            "shadow": "offset-dark",
+            "border_active": false,
+            "border_width": 2,
+            "border_color": "#000000",
+            "productIds": ""
+          }
+        }
+      },
+      "block_order": ["loox_reviews_loox_card_carousel_section_w7Kcx4"],
+      "settings": {}
+    },
+    "collection": {
+      "type": "section-collection",
+      "blocks": {
+        "collection_card_XpRjaz": { "type": "collection_card", "settings": { "collection": "beds-rest", "custom_title": "", "custom_count": "" } },
+        "collection_card_pdiHHE": { "type": "collection_card", "settings": { "collection": "cat-supplies", "custom_title": "", "custom_count": "" } },
+        "collection_card_ajnAXf": { "type": "collection_card", "settings": { "collection": "dog-supplies", "custom_title": "", "custom_count": "" } },
+        "collection_card_mnxJyi": { "type": "collection_card", "settings": { "collection": "feeding-accessories", "custom_title": "", "custom_count": "" } }
+      },
+      "block_order": ["collection_card_XpRjaz","collection_card_pdiHHE","collection_card_ajnAXf","collection_card_mnxJyi"],
+      "settings": {
+        "background_color": "",
+        "padding_bottom": 0,
+        "columns": "4",
+        "show_items_count": true,
+        "bottom_content_maxwidth": 800,
+        "heading_tag": "h2",
+        "bottom_title": "Shop by Category",
+        "bottom_paragraph": "Browse essentials for dogs, cats, feeding and rest.",
+        "button_label": "Explore All Collections",
+        "button_url": "shopify://collections",
+        "button_style": "primary"
+      }
+    },
+    "product_carousel_tabs": {
+      "type": "section-product-carousel-tabs",
+      "blocks": {
+        "tab_raLjij": { "type": "tab", "settings": { "tab_label": "Grooming & Care", "collection": "grooming-care" } },
+        "tab_XhpKzq": { "type": "tab", "settings": { "tab_label": "Walking Accessories", "collection": "walking-accessories" } },
+        "tab_W6Myzc": { "type": "tab", "settings": { "tab_label": "Toys", "collection": "toys" } }
+      },
+      "block_order": ["tab_raLjij","tab_XhpKzq","tab_W6Myzc"],
+      "settings": {
+        "background_color": "",
+        "padding_top": 90,
+        "heading": "Most Popular Products",
+        "heading_tag": "h2",
+        "subheading": "",
+        "heading_alignment": "left",
+        "products_per_tab": 12,
+        "slides_per_view": 4
+      }
+    },
+    "section_feature_image_text_RYRUeW": {
+      "type": "section-feature-image-text",
+      "blocks": {
+        "row_3GGh4Y": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/banner-de-perritos-tiernos.png",
+            "subtitle": "Bestseller",
+            "heading_tag": "h2",
+            "heading": "Walk Together. Pull Never.",
+            "paragraph": "<p>The No-Pull Harness trainers recommend — front-clip technology that redirects without pain. Works from the very first walk.</p>",
+            "show_button": true,
+            "button_text": "Shop Walking Gear",
+            "button_url": "shopify://collections/walking-accessories"
+          }
+        },
+        "row_ir9TFK": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/1788967739646-oepnerkig7f_1f50be0b-e580-4ade-8c0d-a6ca72197d2e.webp",
+            "subtitle": "Fan Favorite",
+            "heading_tag": "h2",
+            "heading": "Adventure-Ready. Always Trackable.",
+            "paragraph": "<p>Military-grade tactical collar with flush-mounted AirTag slot. Find your dog anywhere. Metal buckle rated to 400 lbs.</p>",
+            "show_button": true,
+            "button_text": "Shop Tactical Collar",
+            "button_url": "shopify://products/tactical-dog-collar-with-airtag-holder-metal-buckle"
+          }
+        }
+      },
+      "block_order": ["row_3GGh4Y","row_ir9TFK"],
+      "name": "t:sections.feature_image_text.presets.feature_image_text.name",
+      "settings": {
+        "background_color": ""
+      }
+    },
+    "section_big_collection_card_8T4E8H": {
+      "type": "section-big-collection-card",
+      "blocks": {
+        "card_hbiE8x": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/1788967739612-b3l781s86gp-1788967875306-bx77zxgn.webp",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30,
+            "content_alignment": "left",
+            "subtitle": "Bestseller",
+            "subtitle_color": "#ffffff",
+            "heading": "",
+            "title_tag": "h2",
+            "text_color": "#ffffff",
+            "button_label": "Shop Feeders",
+            "button_url": "shopify://collections/feeding-accessories",
+            "button_style": "primary"
+          }
+        },
+        "card_NfkRHt": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/81Nrb092uIL._AC_SL1500.jpg",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30,
+            "content_alignment": "left",
+            "subtitle": "Sleep Better",
+            "subtitle_color": "#ffffff",
+            "heading": "",
+            "title_tag": "h2",
+            "text_color": "#ffffff",
+            "button_label": "Shop Beds & Rest",
+            "button_url": "shopify://collections/beds-rest",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": ["card_hbiE8x","card_NfkRHt"],
+      "name": "t:sections.big_collection_card.presets.big_collection_card.name",
+      "settings": {
+        "columns": "2",
+        "card_height": 600,
+        "background_color": ""
       }
     },
     "testimonial": {
@@ -305,80 +375,65 @@
           }
         }
       },
-      "block_order": ["testimonial_CwwULi", "testimonial_VJtBpb", "testimonial_7dBPXK"],
+      "block_order": ["testimonial_CwwULi","testimonial_VJtBpb","testimonial_7dBPXK"],
       "settings": {
         "background_color": "",
-        "sub_title": "What our customers say",
-        "heading": "Real pet owners, real results",
+        "sub_title": "Real pet owners, verified purchases",
+        "heading": "Join 1,000+ Happy Pet Owners",
         "heading_tag": "h2"
       }
     },
-    "blog_posts": {
-      "type": "section-blog-posts",
+    "philosophy": {
+      "type": "section-our-story",
       "settings": {
-        "background_color": "",
-        "heading": "Discover pet stories",
-        "heading_alignment": "left",
+        "top_left": "shopify://shop_images/comedero-06-rosa_c2a17833-8312-4ca2-909a-55bd4135ce44.jpg",
+        "center_right": "shopify://shop_images/comedero-04-estudio_a40fb29c-5632-4057-8073-b7dc9fe6a562.jpg",
+        "bottom_part": "shopify://shop_images/tiktok-hook-rascador-gatos-xxl.png",
+        "subheading": "Why MundoPeludo",
         "heading_tag": "h2",
-        "blog": "news",
-        "post_limit": 3
+        "heading": "Your Pet Deserves the Best. Full Stop.",
+        "text": "<p>Every product we carry is tested for safety, quality and pet happiness. No cheap filler. No shortcuts. Just gear that makes your pet's life better — and yours easier.</p>",
+        "button_label": "Our Story",
+        "button_url": "shopify://collections/all",
+        "subheading_color": "",
+        "heading_color": "",
+        "text_color": "",
+        "background_color": "",
+        "padding_top": 100
       }
     },
-    "section_big_collection_card_8T4E8H": {
-      "type": "section-big-collection-card",
-      "blocks": {
-        "card_hbiE8x": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/1788967739612-b3l781s86gp-1788967875306-bx77zxgn.webp",
-            "overlay_color": "#000000",
-            "overlay_opacity": 0,
-            "content_alignment": "left",
-            "subtitle": "Bestseller",
-            "subtitle_color": "#ffffff",
-            "heading": "",
-            "title_tag": "h2",
-            "text_color": "#ffffff",
-            "button_label": "Shop Now",
-            "button_url": "shopify://products/elevated-dog-cat-feeder",
-            "button_style": "primary"
-          }
-        },
-        "card_NfkRHt": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/1788967739549-297y3zu9l9i_59384704-1569-419c-bd67-f933945ed6ca.webp",
-            "overlay_color": "#000000",
-            "overlay_opacity": 0,
-            "content_alignment": "left",
-            "subtitle": "New Arrivals",
-            "subtitle_color": "#ffffff",
-            "heading": "",
-            "title_tag": "h2",
-            "text_color": "#ffffff",
-            "button_label": "Shop Now",
-            "button_url": "shopify://collections/all",
-            "button_style": "primary"
-          }
-        }
-      },
-      "block_order": ["card_hbiE8x", "card_NfkRHt"],
-      "name": "t:sections.big_collection_card.presets.big_collection_card.name",
+    "image_with_overlay_text": {
+      "type": "section-image-with-overlay-text",
       "settings": {
-        "columns": "2",
-        "card_height": 600,
-        "background_color": ""
+        "padding_top": 250,
+        "padding_bottom": 250,
+        "bg_image": "shopify://shop_images/1788967739602-oxcy2j26ba8_8730036f-7ebb-496b-b587-ce1e72f62534.webp",
+        "show_overlay": true,
+        "overlay_color": "#090412",
+        "overlay_opacity": 50,
+        "show_heading": true,
+        "heading_tag": "h2",
+        "content_alignment": "center",
+        "heading": "Free Shipping on Every Order Over $50",
+        "heading_color": "#ffffff",
+        "subtext": "<p>Premium pet products delivered to your door. 30-day satisfaction guarantee on everything we sell.</p>",
+        "subtext_color": "#ffffff",
+        "show_button": true,
+        "button_text": "Shop All Products",
+        "button_url": "shopify://collections/all",
+        "button_style": "primary",
+        "enable_parallax": true
       }
     },
     "section_collection_slideshow_Pf7JeH": {
       "type": "section-collection-slideshow",
       "blocks": {
+        "collection_card_7mVLwB": { "type": "collection_card", "settings": { "collection": "halloween-especial", "custom_title": "🎃 Halloween Special", "custom_count": "" } },
         "collection_card_zCfcXx": { "type": "collection_card", "settings": { "collection": "social-favorites", "custom_title": "", "custom_count": "" } },
         "collection_card_wRnJjr": { "type": "collection_card", "settings": { "collection": "grooming-care", "custom_title": "", "custom_count": "" } },
-        "collection_card_MxkCfg": { "type": "collection_card", "settings": { "collection": "feeding-accessories", "custom_title": "", "custom_count": "" } },
-        "collection_card_7mVLwB": { "type": "collection_card", "settings": { "collection": "halloween-especial", "custom_title": "🎃 Halloween Special", "custom_count": "" } }
+        "collection_card_MxkCfg": { "type": "collection_card", "settings": { "collection": "feeding-accessories", "custom_title": "", "custom_count": "" } }
       },
-      "block_order": ["collection_card_zCfcXx", "collection_card_wRnJjr", "collection_card_MxkCfg", "collection_card_7mVLwB"],
+      "block_order": ["collection_card_7mVLwB","collection_card_zCfcXx","collection_card_wRnJjr","collection_card_MxkCfg"],
       "name": "t:sections.collection_slideshow.presets.collection_slideshow.name",
       "settings": {
         "background_color": "",
@@ -392,42 +447,6 @@
         "overlay_opacity": 30,
         "show_navigation": true,
         "show_pagination": true
-      }
-    },
-    "section_feature_image_text_RYRUeW": {
-      "type": "section-feature-image-text",
-      "blocks": {
-        "row_3GGh4Y": {
-          "type": "row",
-          "settings": {
-            "image": "shopify://shop_images/banner-de-perritos-tiernos.png",
-            "subtitle": "New Arrival",
-            "heading_tag": "h2",
-            "heading": "Where Happy Pets Belong",
-            "paragraph": "<p>Quality products and helpful solutions to make pet care simple and enjoyable.</p>",
-            "show_button": true,
-            "button_text": "Shop Dog Supplies",
-            "button_url": "shopify://collections/dog-supplies"
-          }
-        },
-        "row_ir9TFK": {
-          "type": "row",
-          "settings": {
-            "image": "shopify://shop_images/Sf29ecc740f5942249dcf0adc72d68cd7F_jpg_960x960q75_jpg.avif",
-            "subtitle": "New Arrival",
-            "heading_tag": "h2",
-            "heading": "Healthy Teeth, Happy Pets",
-            "paragraph": "<p>Gentle brushing made easy for cleaner teeth and fresher breath every day.</p>",
-            "show_button": true,
-            "button_text": "Shop Grooming",
-            "button_url": "shopify://collections/grooming-care"
-          }
-        }
-      },
-      "block_order": ["row_3GGh4Y", "row_ir9TFK"],
-      "name": "t:sections.feature_image_text.presets.feature_image_text.name",
-      "settings": {
-        "background_color": ""
       }
     },
     "section_featured_products_XrpJgA": {
@@ -444,53 +463,34 @@
         "products_limit": 8
       }
     },
-    "1790596761d991ec3c": {
-      "type": "apps",
-      "blocks": {
-        "loox_reviews_loox_card_carousel_section_w7Kcx4": {
-          "type": "shopify://apps/loox-reviews/blocks/loox-card-carousel-section/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
-          "settings": {
-            "maxWidth": 1100,
-            "borderRadius": 8,
-            "itemsPerView": 4,
-            "mobileItemsPerView": 1,
-            "maxNumberOfCharacters": 100,
-            "imageRatio": "0.72",
-            "reviewerNameColor": "#000000",
-            "textColor": "#000000",
-            "itemBackgroundColor": "#ffffff",
-            "starsColor": "",
-            "starsBackgroundColor": "#ffffff",
-            "arrows_backgroundColor": "#ffffff",
-            "arrows_iconColor": "#9a9a9a",
-            "shadow": "offset-dark",
-            "border_active": false,
-            "border_width": 2,
-            "border_color": "#000000",
-            "productIds": ""
-          }
-        }
-      },
-      "block_order": ["loox_reviews_loox_card_carousel_section_w7Kcx4"],
-      "settings": {}
+    "blog_posts": {
+      "type": "section-blog-posts",
+      "settings": {
+        "background_color": "",
+        "heading": "Pet Tips & Stories",
+        "heading_alignment": "left",
+        "heading_tag": "h2",
+        "blog": "news",
+        "post_limit": 3
+      }
     }
   },
   "order": [
     "slideshow",
-    "section_flash_sale_EdKAbq",
     "marquee",
-    "collection",
-    "featured_products",
-    "image_with_overlay_text",
-    "product_carousel_tabs",
+    "section_flash_sale_EdKAbq",
     "trust_badges",
-    "philosophy",
-    "testimonial",
-    "blog_posts",
-    "section_big_collection_card_8T4E8H",
-    "section_collection_slideshow_Pf7JeH",
+    "bestsellers_section",
+    "loox_carousel_homepage",
+    "collection",
+    "product_carousel_tabs",
     "section_feature_image_text_RYRUeW",
+    "section_big_collection_card_8T4E8H",
+    "testimonial",
+    "philosophy",
+    "image_with_overlay_text",
+    "section_collection_slideshow_Pf7JeH",
     "section_featured_products_XrpJgA",
-    "1790596761d991ec3c"
+    "blog_posts"
   ]
 }

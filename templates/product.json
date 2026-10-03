@@ -5,7 +5,6 @@
       "blocks": {
         "vendor_4Vk8jQ": { "type": "vendor", "settings": {} },
         "title_NFgHEN": { "type": "heading", "settings": {} },
-        "subtitle_XzWyqh": { "type": "subtitle", "settings": { "subtitle_metafield_key": "custom.product_subheading" } },
         "price_RYNi4X": { "type": "price", "settings": {} },
         "tax_note_GQwwNM": { "type": "tax_note", "settings": {} },
         "availability_HURE9L": { "type": "availability", "settings": {} },
@@ -15,71 +14,177 @@
         "safe_checkout_wDC9DM": { "type": "safe_checkout", "settings": { "safe_checkout_image": "" } },
         "product_media_PiJead": { "type": "product_media", "settings": {} }
       },
-      "block_order": ["vendor_4Vk8jQ","title_NFgHEN","subtitle_XzWyqh","price_RYNi4X","tax_note_GQwwNM","availability_HURE9L","product_form_YW6EEf","size_chart_ny3Eyd","share_kBepLQ","safe_checkout_wDC9DM","product_media_PiJead"],
-      "settings": { "enable_accelerated_checkout": true, "show_installments": true }
+      "block_order": [
+        "vendor_4Vk8jQ",
+        "title_NFgHEN",
+        "price_RYNi4X",
+        "tax_note_GQwwNM",
+        "availability_HURE9L",
+        "product_form_YW6EEf",
+        "safe_checkout_wDC9DM",
+        "size_chart_ny3Eyd",
+        "share_kBepLQ",
+        "product_media_PiJead"
+      ],
+      "settings": {
+        "enable_accelerated_checkout": true,
+        "show_installments": true
+      }
     },
-    "urgency_bar": { "type": "product-urgency", "settings": {} },
-    "sticky_atc": { "type": "sticky-atc", "settings": {} },
-    "product_tabs": {
-      "type": "section-product-tabs",
+    "urgency_bar": {
+      "type": "product-urgency",
+      "settings": {}
+    },
+    "sticky_atc": {
+      "type": "sticky-atc",
+      "settings": {}
+    },
+    "loox_reviews_near_atc": {
+      "type": "apps",
       "blocks": {
-        "description_9BXDnE": { "type": "description", "settings": { "tab_label": "Description" } },
-        "page_ifWp83": { "type": "page", "settings": { "tab_label": "Shipping", "page": "shipping-policy" } },
-        "page_NL7CEz": { "type": "page", "settings": { "tab_label": "Returns", "page": "return-policy" } }
+        "loox_reviews_loox_dynamic_section_EcqVAJ": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-dynamic-section/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "reviews_to_display": "product_reviews_only",
+            "limit": 8
+          }
+        }
       },
-      "block_order": ["description_9BXDnE","page_ifWp83","page_NL7CEz"],
-      "settings": { "background_color": "", "padding_top": 40, "padding_bottom": 60 }
+      "block_order": ["loox_reviews_loox_dynamic_section_EcqVAJ"],
+      "settings": {}
     },
     "trust_badges_mp": {
       "type": "section-trust-badges",
       "blocks": {
-        "badge_ship": { "type": "badge", "settings": { "heading": "Free Shipping", "paragraph": "On all orders over $50" } },
-        "badge_guarantee": { "type": "badge", "settings": { "heading": "Satisfaction Guaranteed", "paragraph": "30-day money back promise" } },
-        "badge_returns": { "type": "badge", "settings": { "heading": "Easy Returns", "paragraph": "Hassle-free return process" } },
-        "badge_secure": { "type": "badge", "settings": { "heading": "Secure Checkout", "paragraph": "256-bit SSL protected" } }
+        "badge_ship": {
+          "type": "badge",
+          "settings": {
+            "heading": "Free Shipping",
+            "paragraph": "On all orders over $50"
+          }
+        },
+        "badge_guarantee": {
+          "type": "badge",
+          "settings": {
+            "heading": "30-Day Guarantee",
+            "paragraph": "Full refund, no questions asked"
+          }
+        },
+        "badge_returns": {
+          "type": "badge",
+          "settings": {
+            "heading": "Easy Returns",
+            "paragraph": "Hassle-free return process"
+          }
+        },
+        "badge_secure": {
+          "type": "badge",
+          "settings": {
+            "heading": "Secure Checkout",
+            "paragraph": "256-bit SSL encryption"
+          }
+        }
       },
-      "block_order": ["badge_ship","badge_guarantee","badge_returns","badge_secure"],
-      "settings": { "columns": "4", "padding_top": 40, "padding_bottom": 40 }
+      "block_order": ["badge_ship", "badge_guarantee", "badge_returns", "badge_secure"],
+      "settings": {
+        "columns": "4",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "product_tabs": {
+      "type": "section-product-tabs",
+      "blocks": {
+        "description_9BXDnE": {
+          "type": "description",
+          "settings": { "tab_label": "Description" }
+        },
+        "page_ifWp83": {
+          "type": "page",
+          "settings": { "tab_label": "Shipping", "page": "shipping-policy" }
+        },
+        "page_NL7CEz": {
+          "type": "page",
+          "settings": { "tab_label": "Returns", "page": "return-policy" }
+        }
+      },
+      "block_order": ["description_9BXDnE", "page_ifWp83", "page_NL7CEz"],
+      "settings": {
+        "background_color": "",
+        "padding_top": 40,
+        "padding_bottom": 60
+      }
     },
     "complementary": {
       "type": "section-complementary-products",
-      "settings": { "background_color": "", "padding_top": 0, "padding_bottom": 60, "heading": "Pairs Well With", "products_count": 10, "products_per_view": 4 }
+      "settings": {
+        "background_color": "",
+        "padding_top": 0,
+        "padding_bottom": 60,
+        "heading": "Complete the Look",
+        "products_count": 10,
+        "products_per_view": 4
+      }
     },
     "recommendations": {
       "type": "section-product-recommendations",
-      "settings": { "background_color": "", "padding_top": 0, "padding_bottom": 60, "heading": "You May Also Like", "products_count": 8, "products_per_view": 4 }
-    },
-    "recently_viewed": {
-      "type": "section-recently-viewed-products",
-      "settings": { "background_color": "", "padding_top": 0, "padding_bottom": 60, "heading": "Recently Viewed", "empty_text": "No recently viewed products yet.", "show_pagination": true, "products_per_view": 4 }
+      "settings": {
+        "background_color": "",
+        "padding_top": 0,
+        "padding_bottom": 60,
+        "heading": "You May Also Like",
+        "products_count": 8,
+        "products_per_view": 4
+      }
     },
     "section_marquee_g8nFGe": {
       "type": "section-marquee",
       "blocks": {
         "slide_QAggCN": { "type": "slide", "settings": { "text": "FREE SHIPPING OVER $50" } },
-        "slide_RTmJqx": { "type": "slide", "settings": { "text": "SHIPS WORLDWIDE" } },
-        "slide_pTVqiA": { "type": "slide", "settings": { "text": "Available in multiple sizes" } },
-        "slide_8pdJr6": { "type": "slide", "settings": { "text": "Easy Returns" } },
-        "slide_T8DRgp": { "type": "slide", "settings": { "text": "Secure Payment" } },
-        "slide_cPJe3P": { "type": "slide", "settings": { "text": "24/7 Support" } },
-        "slide_qXDJnC": { "type": "slide", "settings": { "text": "Customer Trust" } },
+        "slide_RTmJqx": { "type": "slide", "settings": { "text": "30-DAY MONEY BACK GUARANTEE" } },
+        "slide_pTVqiA": { "type": "slide", "settings": { "text": "FAST WORLDWIDE SHIPPING" } },
+        "slide_8pdJr6": { "type": "slide", "settings": { "text": "EASY RETURNS" } },
+        "slide_T8DRgp": { "type": "slide", "settings": { "text": "SECURE PAYMENT" } },
+        "slide_cPJe3P": { "type": "slide", "settings": { "text": "24/7 CUSTOMER SUPPORT" } },
+        "slide_qXDJnC": { "type": "slide", "settings": { "text": "OVER 1,000 HAPPY PETS" } },
         "slide_6V4LhC": { "type": "slide", "settings": { "text": "FREE SHIPPING OVER $50" } }
       },
       "block_order": ["slide_QAggCN","slide_RTmJqx","slide_pTVqiA","slide_8pdJr6","slide_T8DRgp","slide_cPJe3P","slide_qXDJnC","slide_6V4LhC"],
-      "settings": { "background_color": "", "padding_top": 20, "padding_bottom": 20, "text_color": "#ffffff", "font_size": 16, "letter_spacing": 3, "uppercase": true, "speed": 70, "direction": "left" }
+      "settings": {
+        "background_color": "",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "text_color": "#ffffff",
+        "font_size": 16,
+        "letter_spacing": 3,
+        "uppercase": true,
+        "speed": 70,
+        "direction": "left"
+      }
     },
-    "customer_reviews": { "type": "product-reviews", "settings": {} },
-    "1790595269e1041fdf": {
-      "type": "apps",
-      "blocks": {
-        "loox_reviews_loox_dynamic_section_EcqVAJ": {
-          "type": "shopify://apps/loox-reviews/blocks/loox-dynamic-section/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
-          "settings": { "reviews_to_display": "product_reviews_only", "limit": 20 }
-        }
-      },
-      "block_order": ["loox_reviews_loox_dynamic_section_EcqVAJ"],
-      "settings": {}
+    "recently_viewed": {
+      "type": "section-recently-viewed-products",
+      "settings": {
+        "background_color": "",
+        "padding_top": 0,
+        "padding_bottom": 60,
+        "heading": "Recently Viewed",
+        "empty_text": "No recently viewed products yet.",
+        "show_pagination": true,
+        "products_per_view": 4
+      }
     }
   },
-  "order": ["main","urgency_bar","sticky_atc","product_tabs","trust_badges_mp","complementary","recommendations","recently_viewed","section_marquee_g8nFGe","customer_reviews","1790595269e1041fdf"]
+  "order": [
+    "main",
+    "urgency_bar",
+    "sticky_atc",
+    "loox_reviews_near_atc",
+    "trust_badges_mp",
+    "product_tabs",
+    "complementary",
+    "recommendations",
+    "section_marquee_g8nFGe",
+    "recently_viewed"
+  ]
 }
