@@ -1,0 +1,45 @@
+{
+  "sections": {
+    "page-hero": {
+      "type": "section-page-hero",
+      "settings": {
+        "hero_style": "split",
+        "heading": "",
+        "show_breadcrumb": true,
+        "hero_image": "shopify://shop_images/1788967739646-oepnerkig7f-1788967875306-ltbtsfsa.webp",
+        "hero_bg_color": "",
+        "hero_overlay_bg_color": "#000000",
+        "hero_overlay_opacity": 35,
+        "hero_text_color": "#ffffff",
+        "hero_split_bg_color": "",
+        "hero_split_text_color": "",
+        "enable_parallax": true
+      }
+    },
+    "main": {
+      "type": "collection",
+      "settings": {
+        "background_color": "",
+        "products_per_page": "12",
+        "columns_desktop": 3
+      }
+    },
+    "recently_viewed": {
+      "type": "section-recently-viewed-products",
+      "settings": {
+        "background_color": "",
+        "padding_top": 0,
+        "padding_bottom": 60,
+        "heading": "Recently Viewed",
+        "empty_text": "No recently viewed products yet.",
+        "show_pagination": true,
+        "products_per_view": 4
+      }
+    }
+  },
+  "order": [
+    "page-hero",
+    "main",
+    "recently_viewed"
+  ]
+}
