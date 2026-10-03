@@ -1,74 +1,8 @@
-/* MundoPeludo Sales Funnel v1.1 */
+/* MundoPeludo Sales Funnel v1.2 */
 (function () {
   'use strict';
 
-  var DISCOUNT_CODE = 'BIENVENIDO10';
-  var POPUP_DELAY = 9000;
   var HALLOWEEN_END = new Date('2026-10-31T23:59:59');
-
-  /* ── EMAIL POPUP ── */
-  function createEmailPopup() {
-    if (localStorage.getItem('mp_popup_dismissed') || localStorage.getItem('mp_email_captured')) return;
-    if (document.getElementById('mp-popup-overlay')) return;
-
-    var overlay = document.createElement('div');
-    overlay.id = 'mp-popup-overlay';
-    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;transition:opacity .3s;';
-
-    var box = document.createElement('div');
-    box.style.cssText = 'background:#fff;border-radius:14px;max-width:460px;width:100%;padding:40px 28px 28px;position:relative;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.4);';
-    box.innerHTML =
-      '<button id="mp-close" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#aaa;line-height:1;">&#10005;</button>' +
-      '<div style="font-size:44px;margin-bottom:6px;">🐾</div>' +
-      '<h2 style="font-size:22px;font-weight:800;margin:0 0 8px;color:#111;">10% OFF tu primer pedido</h2>' +
-      '<p style="color:#666;font-size:14px;margin:0 0 22px;">Más de 2.000 dueños de mascotas ya disfrutan de MundoPeludo. Únete y llévate tu descuento ahora.</p>' +
-      '<form id="mp-email-form">' +
-        '<input id="mp-email-input" type="email" placeholder="Tu email..." required ' +
-          'style="width:100%;padding:13px 15px;border:2px solid #e0e0e0;border-radius:8px;font-size:15px;box-sizing:border-box;margin-bottom:10px;outline:none;">' +
-        '<button type="submit" ' +
-          'style="width:100%;padding:15px;background:#1a472a;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s;">' +
-          'Quiero mi 10% de descuento →' +
-        '</button>' +
-      '</form>' +
-      '<p id="mp-email-ok" style="display:none;color:#1a472a;font-weight:800;font-size:16px;margin:16px 0 0;"></p>' +
-      '<p style="margin:10px 0 0;font-size:11px;color:#bbb;">Sin spam. Cancela cuando quieras.</p>';
-
-    overlay.appendChild(box);
-    document.body.appendChild(overlay);
-    requestAnimationFrame(function () { overlay.style.opacity = '1'; });
-
-    function dismiss() {
-      overlay.style.opacity = '0';
-      setTimeout(function () { overlay.remove(); }, 300);
-      localStorage.setItem('mp_popup_dismissed', '1');
-    }
-
-    document.getElementById('mp-close').addEventListener('click', dismiss);
-    overlay.addEventListener('click', function (e) { if (e.target === overlay) dismiss(); });
-
-    document.getElementById('mp-email-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var email = document.getElementById('mp-email-input').value.trim();
-      if (!email) return;
-
-      fetch('/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'form_type=customer&utf8=%E2%9C%93&customer%5Bemail%5D=' + encodeURIComponent(email) + '&customer%5Baccepts_marketing%5D=true'
-      }).catch(function () {});
-
-      localStorage.setItem('mp_email_captured', '1');
-
-      var ok = document.getElementById('mp-email-ok');
-      ok.style.display = 'block';
-      ok.innerHTML = '¡Listo! Tu código: <span style="background:#e8f5e9;padding:3px 10px;border-radius:4px;letter-spacing:1px;">' + DISCOUNT_CODE + '</span> 🎉<br><span style="font-size:12px;font-weight:400;color:#777;">Cópialo y úsalo al hacer checkout</span>';
-      document.getElementById('mp-email-form').style.display = 'none';
-      setTimeout(function () {
-        overlay.style.opacity = '0';
-        setTimeout(function () { overlay.remove(); }, 300);
-      }, 5000);
-    });
-  }
 
   /* ── SOCIAL PROOF TOASTS ── */
   var SP_NAMES  = ['Carlos','María','Lucía','Javier','Ana','Pablo','Isabel','Diego','Sofía','Marcos','Elena','Rubén'];
@@ -112,7 +46,7 @@
     var form = document.querySelector('form[action="/cart/add"]');
     if (!form) return;
 
-    var viewers  = Math.floor(Math.random() * 11) + 4;
+    var viewers     = Math.floor(Math.random() * 11) + 4;
     var boughtToday = Math.floor(Math.random() * 17) + 6;
 
     var bar = document.createElement('div');
@@ -153,9 +87,24 @@
     tick();
     setInterval(tick, 1000);
 
-    var anchor = document.querySelector('#shopify-section-announcement-bar, .announcement-bar, [data-section-type="announcement-bar"], header');
-    if (anchor) anchor.insertAdjacentElement('afterend', bar);
-    else document.body.prepend(bar);
+    // Insert AFTER the main header (below logo + nav + announcement bar)
+    var anchor = document.querySelector(
+      '#shopify-section-header, [data-section-type="header"], .header-section, .site-header'
+    );
+    if (anchor) {
+      anchor.insertAdjacentElement('afterend', bar);
+    } else {
+      // Fallback: wait for header to render then insert
+      var tries = 0;
+      var poll = setInterval(function () {
+        var h = document.querySelector('header');
+        if (h || ++tries > 20) {
+          clearInterval(poll);
+          if (h) h.insertAdjacentElement('afterend', bar);
+          else document.body.prepend(bar);
+        }
+      }, 150);
+    }
   }
 
   /* ── STICKY BUY BUTTON (MOBILE) ── */
@@ -186,17 +135,6 @@
     io.observe(originalBtn);
   }
 
-  /* ── EXIT INTENT ── */
-  function setupExitIntent() {
-    if (localStorage.getItem('mp_popup_dismissed') || localStorage.getItem('mp_email_captured')) return;
-    document.addEventListener('mouseleave', function handler(e) {
-      if (e.clientY <= 0) {
-        document.removeEventListener('mouseleave', handler);
-        if (!document.getElementById('mp-popup-overlay')) createEmailPopup();
-      }
-    });
-  }
-
   /* ── HALLOWEEN POPUP PREMIUM ── */
   function createHalloweenPopup() {
     if (new Date() > HALLOWEEN_END) return;
@@ -218,7 +156,6 @@
 
     var batSVG = '<svg width="28" height="18" viewBox="0 0 32 20" fill="currentColor"><path d="M16 8C12 4 6 0 0 2c4 2 6 6 8 8-2 0-5-1-7 2 3-1 6 0 7 1 1 1 2 3 4 3 1 0 2-1 4-2 2 1 3 2 4 2 2 0 3-2 4-3 1-1 4-2 7-1-2-3-5-2-7-2 2-2 4-6 8-8-6-2-12 2-16 6z"/></svg>';
 
-    // Flying bats injected into body
     var batConfigs = [
       { anim: 'mpHwBat',  dur: '7s',  delay: '0s',   top: '12%', color: '#2d1040', size: '28px' },
       { anim: 'mpHwBat2', dur: '9s',  delay: '2.5s', top: '22%', color: '#1a0828', size: '22px' },
@@ -237,13 +174,12 @@
     overlay.id = 'mp-hw-overlay';
     overlay.style.cssText = 'position:fixed;inset:0;background:rgba(5,0,18,.88);z-index:100001;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;transition:opacity .45s;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);';
 
-    // Random stars
     var starsHTML = '';
     for (var i = 0; i < 20; i++) {
-      var sz = (Math.random() * 2.5 + 1).toFixed(1);
-      var sx = (Math.random() * 94 + 3).toFixed(1);
-      var sy = (Math.random() * 90 + 5).toFixed(1);
-      var sd = (Math.random() * 2.5).toFixed(2);
+      var sz   = (Math.random() * 2.5 + 1).toFixed(1);
+      var sx   = (Math.random() * 94 + 3).toFixed(1);
+      var sy   = (Math.random() * 90 + 5).toFixed(1);
+      var sd   = (Math.random() * 2.5).toFixed(2);
       var sdur = (1.8 + Math.random() * 2).toFixed(1);
       starsHTML += '<div style="position:absolute;width:' + sz + 'px;height:' + sz + 'px;background:#ffb347;border-radius:50%;left:' + sx + '%;top:' + sy + '%;animation:mpHwStar ' + sdur + 's ' + sd + 's ease-in-out infinite;"></div>';
     }
@@ -281,7 +217,6 @@
     document.body.appendChild(overlay);
     requestAnimationFrame(function () { overlay.style.opacity = '1'; });
 
-    // Countdown ticker
     var cdEl = document.getElementById('mp-hw-cd');
     if (cdEl) {
       cdEl.innerHTML = hwTime();
@@ -292,7 +227,6 @@
       }, 1000);
     }
 
-    // Copy button
     var copyBtn = document.getElementById('mp-hw-copy');
     copyBtn.addEventListener('click', function () {
       var btn = this;
@@ -316,7 +250,6 @@
       });
     });
 
-    // CTA hover
     var ctaEl = document.getElementById('mp-hw-cta');
     ctaEl.addEventListener('mouseenter', function () {
       this.style.transform = 'translateY(-2px)';
@@ -327,7 +260,6 @@
       this.style.boxShadow = '0 8px 28px rgba(255,107,0,.45)';
     });
 
-    // Close button hover
     var closeBtn = document.getElementById('mp-hw-close');
     closeBtn.addEventListener('mouseenter', function () { this.style.color = 'rgba(255,255,255,.8)'; });
     closeBtn.addEventListener('mouseleave', function () { this.style.color = 'rgba(255,255,255,.4)'; });
@@ -335,14 +267,16 @@
     function hwDismiss() {
       overlay.style.opacity = '0';
       setTimeout(function () { if (overlay.parentNode) overlay.remove(); }, 450);
-      batEls.forEach(function (b) { b.style.opacity = '0'; setTimeout(function () { if (b.parentNode) b.remove(); }, 450); });
+      batEls.forEach(function (b) {
+        b.style.opacity = '0';
+        setTimeout(function () { if (b.parentNode) b.remove(); }, 450);
+      });
       localStorage.setItem('mp_halloween_shown', '1');
     }
 
     closeBtn.addEventListener('click', hwDismiss);
     overlay.addEventListener('click', function (e) { if (e.target === overlay) hwDismiss(); });
 
-    // Auto-close after 18s if no interaction
     setTimeout(function () {
       if (document.getElementById('mp-hw-overlay')) hwDismiss();
     }, 18000);
@@ -354,10 +288,6 @@
     addUrgency();
     addStickyBuy();
     startToasts();
-    setupExitIntent();
-    if (!localStorage.getItem('mp_popup_dismissed') && !localStorage.getItem('mp_email_captured')) {
-      setTimeout(createEmailPopup, POPUP_DELAY);
-    }
     setTimeout(createHalloweenPopup, 22000);
   }
 
