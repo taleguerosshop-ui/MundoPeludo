@@ -1,12 +1,12 @@
-/* MundoPeludo Sales Funnel v1.2 */
+/* MundoPeludo Sales Funnel v1.3 */
 (function () {
   'use strict';
 
   var HALLOWEEN_END = new Date('2026-10-31T23:59:59');
 
   /* ── SOCIAL PROOF TOASTS ── */
-  var SP_NAMES  = ['Carlos','María','Lucía','Javier','Ana','Pablo','Isabel','Diego','Sofía','Marcos','Elena','Rubén'];
-  var SP_CITIES = ['Madrid','Barcelona','Valencia','Sevilla','Bilbao','Málaga','Zaragoza','Murcia','Alicante','Vigo'];
+  var SP_NAMES  = ['Tyler','Ashley','Michael','Jessica','Brandon','Sarah','Kevin','Emily','Chris','Melissa','Jake','Amanda'];
+  var SP_CITIES = ['New York','Los Angeles','Chicago','Houston','Phoenix','San Diego','Dallas','Austin','Seattle','Miami','Denver','Boston'];
   var SP_ITEMS  = ['Arnés sin tirones','Comedero automático','Cepillo antideshedding','Cama ortopédica','Cortaúñas eléctrico','Collar táctico','Cama calmante','Árbol para gatos','Transportín'];
 
   function showToast() {
@@ -20,9 +20,9 @@
     el.innerHTML =
       '<div style="font-size:26px;">🐾</div>' +
       '<div>' +
-        '<div style="font-weight:700;font-size:13px;color:#111;">' + name + ' de ' + city + '</div>' +
-        '<div style="font-size:12px;color:#555;">compró <strong>' + product + '</strong></div>' +
-        '<div style="font-size:11px;color:#aaa;">hace ' + mins + ' min</div>' +
+        '<div style="font-weight:700;font-size:13px;color:#111;">' + name + ' from ' + city + '</div>' +
+        '<div style="font-size:12px;color:#555;">just bought <strong>' + product + '</strong></div>' +
+        '<div style="font-size:11px;color:#aaa;">' + mins + ' min ago</div>' +
       '</div>';
 
     document.body.appendChild(el);
@@ -52,8 +52,8 @@
     var bar = document.createElement('div');
     bar.style.cssText = 'background:#fff8f0;border:1px solid #ffe0b2;border-radius:8px;padding:10px 14px;margin:12px 0;font-size:13px;line-height:1.8;';
     bar.innerHTML =
-      '<div style="color:#e65100;font-weight:700;">🔥 ' + boughtToday + ' personas compraron esto hoy</div>' +
-      '<div id="mp-viewers" style="color:#555;">👀 <span id="mp-v-count">' + viewers + '</span> personas están viendo este producto ahora</div>';
+      '<div style="color:#e65100;font-weight:700;">🔥 ' + boughtToday + ' people bought this today</div>' +
+      '<div id="mp-viewers" style="color:#555;">👀 <span id="mp-v-count">' + viewers + '</span> people are viewing this right now</div>';
 
     form.insertAdjacentElement('beforebegin', bar);
 
@@ -87,23 +87,26 @@
     tick();
     setInterval(tick, 1000);
 
-    // Insert AFTER the main header (below logo + nav + announcement bar)
-    var anchor = document.querySelector(
-      '#shopify-section-header, [data-section-type="header"], .header-section, .site-header'
-    );
-    if (anchor) {
-      anchor.insertAdjacentElement('afterend', bar);
+    function insertCountdown() {
+      // On home page the sticky header can overlap content; prepend to main instead
+      var main = document.querySelector('main, [role="main"], #MainContent, #content-for-layout');
+      if (main) { main.insertAdjacentElement('afterbegin', bar); return; }
+      // Fallback: after header section
+      var anchor = document.querySelector(
+        '#shopify-section-header, [data-section-type="header"], .header-section, .site-header'
+      );
+      if (anchor) { anchor.insertAdjacentElement('afterend', bar); return; }
+      document.body.prepend(bar);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', insertCountdown);
     } else {
-      // Fallback: wait for header to render then insert
       var tries = 0;
       var poll = setInterval(function () {
-        var h = document.querySelector('header');
-        if (h || ++tries > 20) {
-          clearInterval(poll);
-          if (h) h.insertAdjacentElement('afterend', bar);
-          else document.body.prepend(bar);
-        }
-      }, 150);
+        var m = document.querySelector('main, [role="main"], #MainContent, #content-for-layout, header, .site-header');
+        if (m || ++tries > 20) { clearInterval(poll); insertCountdown(); }
+      }, 100);
     }
   }
 
