@@ -5,6 +5,7 @@
       "blocks": {
         "vendor_4Vk8jQ": { "type": "vendor", "settings": {} },
         "title_NFgHEN": { "type": "heading", "settings": {} },
+        "subtitle_XzWyqh": { "type": "subtitle", "settings": { "subtitle_metafield_key": "custom.product_subheading" } },
         "price_RYNi4X": { "type": "price", "settings": {} },
         "tax_note_GQwwNM": { "type": "tax_note", "settings": {} },
         "availability_HURE9L": { "type": "availability", "settings": {} },
@@ -17,6 +18,7 @@
       "block_order": [
         "vendor_4Vk8jQ",
         "title_NFgHEN",
+        "subtitle_XzWyqh",
         "price_RYNi4X",
         "tax_note_GQwwNM",
         "availability_HURE9L",
@@ -59,6 +61,7 @@
         "photo_ship": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/71yxvYW2DQL._AC_SL1500.jpg",
             "icon": "🚚",
             "label": "Free Shipping",
             "sublabel": "On all orders over $50"
@@ -67,6 +70,7 @@
         "photo_guarantee": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/81Nrb092uIL._AC_SL1500.jpg",
             "icon": "🔄",
             "label": "30-Day Guarantee",
             "sublabel": "Full refund, no questions asked"
@@ -75,6 +79,7 @@
         "photo_returns": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/91hpK97fpZL._AC_SL1500.jpg",
             "icon": "📦",
             "label": "Easy Returns",
             "sublabel": "Hassle-free return process"
@@ -83,6 +88,7 @@
         "photo_secure": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/1788967739549-297y3zu9l9i-1788967875306-u6x3ihjn.webp",
             "icon": "🔒",
             "label": "Secure Checkout",
             "sublabel": "256-bit SSL encryption"
