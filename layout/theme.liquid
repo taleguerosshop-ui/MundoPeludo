@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<meta name="google-site-verification" content="D5iU7mW1nLQwRgj5Jl0b7vGVZQS8_FA0iuhNjkA6Bbs" />    {% # Inject all CSS custom properties before any stylesheet %}
+    {% render 'css-variables' %}
+
+    {% # Preconnect to Shopify font CDN, then preload critical font variants %}
+    {% unless settings.type_header_font.system? %}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+      {{ settings.type_header_font | font_url | preload_tag: as: 'font', crossorigin: 'anonymous' }}
+    {% endunless %}
+    {% unless settings.type_body_font.system? %}
+      {{ settings.type_body_font | font_url | preload_tag: as: 'font', crossorigin: 'anonymous' }}
+    {% endunless %}
+
+    {% # Load critical above-the-fold styles with preload %}
+    {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
+
+    {% # Meta tags %}
+    {% render 'meta-tags' %}
+
+    {% # Load scroll to top script %}
+    <script src="{{ 'scrolltotop.js' | asset_url }}" defer></script>
+
+    {% # Load Lenis %}
+    {% if settings.animate_on_scroll %}
+      <script src="{{ 'lenis.min.js' | asset_url }}" defer></script>
+      <script src="{{ 'lenis-animation.js' | asset_url }}" defer></script>
+    {% endif %}
+
+    {% # Load Swiper JS %}
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+
+    {% # Load product card css & js %}
+    {{ 'section-product-card.css' | asset_url | stylesheet_tag }}
+    {{ 'quick-view.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'product-card.js' | asset_url }}" defer></script>
+    <script src="{{ 'quick-view.js' | asset_url }}" defer></script>
+
+    {{ content_for_header }}
+<meta name="google-site-verification" content="D5iU7mW1nLQwRgj5Jl0b7vGVZQS8_FA0iuhNjkA6Bbs" />
+  <body data-btn-hover="{{ settings.button_hover_effect }}">
+    {% # Enable prelaoder %}
+    {% if settings.enable_preloader %}
+      <div id="site-preloader">
+        <div class="preloader-inner">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 3a9 9 0 1 0 9 9" /></svg>
+        </div>
+      </div>
+    {% endif %}
+
+    {% # Skip to content link %}
+    <a class="skip-to-content-link" href="#main-content">
+      {{ 'accessibility.skip_to_content' | t }}
+    </a>
+
+    {% sections 'header-group' %}
+
+    <main id="main-content" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {% sections 'overlay-group' %}
+
+    {% # Scroll to top button %}
+    <div class="scrolltop-wrapper scrolltop--hide" id="scrollTopWrapper">
+      <svg class="progress-ring" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+        <circle class="progress-ring__track" cx="25" cy="25" r="23"/>
+        <circle class="progress-ring__fill" id="progressRingFill" cx="25" cy="25" r="23"/>
+      </svg>
+      <button id="scrollTopButton" class="scrolltop-btn" aria-label="Scroll to top" title="Scroll to top">
+        {% render 'icon-top-arrow' %}
+      </button>
+    </div>
+
+    <script>
+      {% if settings.enable_preloader %}
+        window.addEventListener('load', function () {
+          var preloader = document.getElementById('site-preloader');
+          if (preloader) {
+            preloader.classList.add('is-hidden');
+            setTimeout(function () {
+              preloader.remove();
+            }, 500);
+          }
+        });
+      {% endif %}
+
+      window.__ornixSettings = {
+        cart_type: {{ settings.cart_type | json }},
+        badge_shape: {{ settings.badge_shape | json }},
+        badge_text_size: {{ settings.badge_text_size | json }},
+        badge_font_weight: {{ settings.badge_font_weight | json }},
+        badge_sold_out_bg: {{ settings.badge_sold_out_bg | json }},
+        badge_sold_out_text: {{ settings.badge_sold_out_text | json }},
+        badge_sale_bg: {{ settings.badge_sale_bg | json }},
+        badge_sale_text: {{ settings.badge_sale_text | json }},
+        badge_new_bg: {{ settings.badge_new_bg | json }},
+        badge_new_text: {{ settings.badge_new_text | json }},
+        moneyFormat: {{ shop.money_format | json }},
+        moneyWithCurrencyFormat: {{ shop.money_with_currency_format | json }},
+        showCurrencyCodes: {{ settings.currency_show_codes | json }}
+      };
+    </script>
+
+    {% # Halloween decoration layer %}
+    <link rel="stylesheet" href="{{ 'halloween-decor.css' | asset_url }}" media="print" onload="this.media='all'">
+    <noscript>{{ 'halloween-decor.css' | asset_url | stylesheet_tag }}</noscript>
+    <script src="{{ 'halloween-decor.js' | asset_url }}" defer></script>
+
+    {% # Sales funnel: urgency, social proof, free shipping bar, Halloween popup %}
+    <script src="{{ 'funnel.js' | asset_url }}" defer></script>
+  </body>
+</html>
