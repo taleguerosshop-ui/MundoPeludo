@@ -1,13 +1,14 @@
-/* MundoPeludo Sales Funnel v1.3 */
+/* MundoPeludo Sales Funnel v1.4 */
 (function () {
   'use strict';
 
-  var HALLOWEEN_END = new Date('2026-10-31T23:59:59');
+  var HALLOWEEN_END   = new Date('2026-10-31T23:59:59');
+  var FREE_SHIP_CENTS = 5000; // $50.00 threshold
 
   /* ── SOCIAL PROOF TOASTS ── */
   var SP_NAMES  = ['Tyler','Ashley','Michael','Jessica','Brandon','Sarah','Kevin','Emily','Chris','Melissa','Jake','Amanda'];
   var SP_CITIES = ['New York','Los Angeles','Chicago','Houston','Phoenix','San Diego','Dallas','Austin','Seattle','Miami','Denver','Boston'];
-  var SP_ITEMS  = ['Arnés sin tirones','Comedero automático','Cepillo antideshedding','Cama ortopédica','Cortaúñas eléctrico','Collar táctico','Cama calmante','Árbol para gatos','Transportín'];
+  var SP_ITEMS  = ['No-Pull Harness','Auto Feeder','Anti-Shedding Brush','Orthopedic Bed','Electric Nail Trimmer','Tactical Collar','Calming Bed','Cat Tree','Pet Carrier'];
 
   function showToast() {
     var name    = SP_NAMES[Math.floor(Math.random() * SP_NAMES.length)];
@@ -48,12 +49,16 @@
 
     var viewers     = Math.floor(Math.random() * 11) + 4;
     var boughtToday = Math.floor(Math.random() * 17) + 6;
+    var boughtMonth = Math.floor(Math.random() * 401) + 300; // 300-700
+    var stockLeft   = Math.floor(Math.random() * 5) + 2;     // 2-6
 
     var bar = document.createElement('div');
-    bar.style.cssText = 'background:#fff8f0;border:1px solid #ffe0b2;border-radius:8px;padding:10px 14px;margin:12px 0;font-size:13px;line-height:1.8;';
+    bar.style.cssText = 'background:#fff8f0;border:1px solid #ffe0b2;border-radius:8px;padding:10px 14px;margin:12px 0;font-size:13px;line-height:1.9;';
     bar.innerHTML =
       '<div style="color:#e65100;font-weight:700;">🔥 ' + boughtToday + ' people bought this today</div>' +
-      '<div id="mp-viewers" style="color:#555;">👀 <span id="mp-v-count">' + viewers + '</span> people are viewing this right now</div>';
+      '<div style="color:#555;">👀 <span id="mp-v-count">' + viewers + '</span> people are viewing this right now</div>' +
+      '<div style="color:#dc2626;font-weight:600;">⚡ Only ' + stockLeft + ' left in stock — order soon!</div>' +
+      '<div style="color:#15803d;font-size:12px;font-weight:500;">❤️ ' + boughtMonth + '+ happy pet parents ordered this month</div>';
 
     form.insertAdjacentElement('beforebegin', bar);
 
@@ -81,17 +86,15 @@
       var h = Math.floor((diff % 86400000) / 3600000);
       var m = Math.floor((diff % 3600000) / 60000);
       var s = Math.floor((diff % 60000) / 1000);
-      bar.textContent = '🎃 OFERTA HALLOWEEN TERMINA EN: ' + d + 'd ' + h + 'h ' + m + 'm ' + s + 's — Código: SPOOKY20';
+      bar.textContent = '🎃 HALLOWEEN SALE ENDS IN: ' + d + 'd ' + h + 'h ' + m + 'm ' + s + 's — Code: SPOOKY20';
     }
 
     tick();
     setInterval(tick, 1000);
 
     function insertCountdown() {
-      // On home page the sticky header can overlap content; prepend to main instead
       var main = document.querySelector('main, [role="main"], #MainContent, #content-for-layout');
       if (main) { main.insertAdjacentElement('afterbegin', bar); return; }
-      // Fallback: after header section
       var anchor = document.querySelector(
         '#shopify-section-header, [data-section-type="header"], .header-section, .site-header'
       );
@@ -125,7 +128,7 @@
 
     var btn = document.createElement('button');
     btn.type = 'button';
-    btn.textContent = '🛒 Añadir al carrito';
+    btn.textContent = '🛒 Add to Cart';
     btn.style.cssText = 'width:100%;padding:15px;background:#1a472a;color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;';
     btn.addEventListener('click', function () { originalBtn.click(); });
 
@@ -138,10 +141,72 @@
     io.observe(originalBtn);
   }
 
-  /* ── HALLOWEEN POPUP PREMIUM ── */
+  /* ── FREE SHIPPING PROGRESS BAR (cart drawer) ── */
+  function addFreeShipping() {
+    function renderBar(subtotalCents) {
+      var remaining = Math.max(0, FREE_SHIP_CENTS - subtotalCents);
+      var pct       = Math.min(100, Math.round((subtotalCents / FREE_SHIP_CENTS) * 100));
+      var msg = remaining <= 0
+        ? '🎉 You\'ve unlocked <strong>FREE shipping!</strong>'
+        : 'You\'re <strong>$' + (remaining / 100).toFixed(2) + ' away</strong> from <strong>FREE shipping</strong>!';
+
+      return '<div id="mp-fs-bar" style="background:#f0fdf4;border-bottom:1px solid #bbf7d0;padding:11px 16px 13px;font-size:12.5px;line-height:1.5;text-align:center;">' +
+        '<div style="margin-bottom:8px;color:#15803d;">' + msg + '</div>' +
+        '<div style="background:#dcfce7;border-radius:4px;height:5px;overflow:hidden;max-width:300px;margin:0 auto;">' +
+          '<div style="background:#15803d;height:100%;width:' + pct + '%;border-radius:4px;transition:width .5s;"></div>' +
+        '</div>' +
+      '</div>';
+    }
+
+    function injectBar() {
+      var drawer = document.querySelector(
+        '.cart-drawer__inner, .cart-drawer__content, [data-cart-drawer] .drawer__inner, #CartDrawer .drawer__inner, .cart-drawer .drawer__inner'
+      );
+      if (!drawer) return;
+      var existing = document.getElementById('mp-fs-bar');
+      if (existing) existing.remove();
+      fetch('/cart.js')
+        .then(function (r) { return r.json(); })
+        .then(function (cart) {
+          var ex = document.getElementById('mp-fs-bar');
+          if (ex) ex.remove();
+          drawer.insertAdjacentHTML('afterbegin', renderBar(cart.total_price));
+        })
+        .catch(function () {});
+    }
+
+    // Standard Shopify cart events
+    document.addEventListener('cart:open',    function () { setTimeout(injectBar, 250); });
+    document.addEventListener('cart:updated', function () { setTimeout(injectBar, 250); });
+    document.addEventListener('cart:refresh', function () { setTimeout(injectBar, 250); });
+
+    // Click on any cart-open trigger
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest(
+        '[data-cart-toggle], .cart-icon-btn, .js-cart-open, [href="#cart-drawer"], ' +
+        '.header__cart, .cart-count, [data-open="cart-drawer"], .icon-cart'
+      );
+      if (btn) setTimeout(injectBar, 380);
+    });
+
+    // MutationObserver: detect when cart drawer becomes visible
+    var mo = new MutationObserver(function () {
+      var open = document.querySelector(
+        '.cart-drawer.open, .cart-drawer.is-open, .cart-drawer.active, ' +
+        '.cart-drawer[aria-hidden="false"], [data-cart-drawer].open'
+      );
+      if (open && !document.getElementById('mp-fs-bar')) injectBar();
+    });
+    mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'aria-hidden'] });
+  }
+
+  /* ── HALLOWEEN POPUP PREMIUM — FULL ENGLISH ── */
   function createHalloweenPopup() {
     if (new Date() > HALLOWEEN_END) return;
-    if (localStorage.getItem('mp_halloween_shown')) return;
+
+    // 24-hour cooldown (not permanent)
+    var stored = localStorage.getItem('mp_halloween_shown');
+    if (stored && (Date.now() - parseInt(stored, 10)) < 86400000) return;
     if (document.getElementById('mp-hw-overlay')) return;
 
     var style = document.createElement('style');
@@ -192,7 +257,7 @@
 
     function hwTime() {
       var diff = HALLOWEEN_END - new Date();
-      if (diff <= 0) return '<span style="color:#ff6b00;">¡Última hora!</span>';
+      if (diff <= 0) return '<span style="color:#ff6b00;">Last chance!</span>';
       var d = Math.floor(diff / 86400000);
       var h = Math.floor((diff % 86400000) / 3600000);
       var m = Math.floor((diff % 3600000) / 60000);
@@ -204,17 +269,17 @@
     box.innerHTML = starsHTML +
       '<button id="mp-hw-close" style="position:absolute;top:16px;right:20px;background:none;border:none;font-size:18px;cursor:pointer;color:rgba(255,255,255,.4);line-height:1;z-index:2;transition:color .2s;">✕</button>' +
       '<div style="font-size:60px;animation:mpHwFloat 3.2s ease-in-out infinite;display:inline-block;filter:drop-shadow(0 0 18px rgba(255,107,0,.9)) drop-shadow(0 0 40px rgba(255,60,0,.5));margin-bottom:4px;">🎃</div>' +
-      '<div style="font-size:10px;font-weight:800;letter-spacing:4px;color:#ff9a3c;text-transform:uppercase;margin-bottom:6px;">— Oferta especial Halloween —</div>' +
+      '<div style="font-size:10px;font-weight:800;letter-spacing:4px;color:#ff9a3c;text-transform:uppercase;margin-bottom:6px;">— Halloween Special Offer —</div>' +
       '<h2 style="font-size:58px;font-weight:900;margin:0 0 2px;line-height:1;background:linear-gradient(90deg,#ff6b00 0%,#ffd700 40%,#ff8c00 60%,#ff6b00 100%);background-size:250%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:mpHwShimmer 3s linear infinite;">20% OFF</h2>' +
-      '<p style="color:rgba(255,255,255,.7);font-size:15px;margin:0 0 24px;font-weight:500;line-height:1.5;">En <strong style="color:#fff;">toda la tienda</strong> para tus mascotas 🐾<br><span style="font-size:13px;color:rgba(255,255,255,.45);">El mejor precio del año, solo esta semana</span></p>' +
+      '<p style="color:rgba(255,255,255,.7);font-size:15px;margin:0 0 24px;font-weight:500;line-height:1.5;">On <strong style="color:#fff;">everything in our store</strong> for your pet 🐾<br><span style="font-size:13px;color:rgba(255,255,255,.45);">The best deal of the year — this week only</span></p>' +
       '<div style="background:rgba(255,107,0,.1);border:1.5px solid rgba(255,107,0,.45);border-radius:14px;padding:18px 22px 14px;margin:0 0 14px;">' +
-        '<div style="font-size:10px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.4);margin-bottom:8px;">TU CÓDIGO DE DESCUENTO</div>' +
+        '<div style="font-size:10px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.4);margin-bottom:8px;">YOUR DISCOUNT CODE</div>' +
         '<div id="mp-hw-code" style="font-size:30px;font-weight:900;letter-spacing:5px;color:#fff;text-shadow:0 0 22px rgba(255,107,0,.9),0 0 50px rgba(255,60,0,.4);margin-bottom:10px;">SPOOKY20</div>' +
-        '<button id="mp-hw-copy" style="background:rgba(255,107,0,.18);border:1.5px solid rgba(255,107,0,.5);color:#ffb347;padding:7px 22px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.5px;transition:all .2s;">📋 Copiar código</button>' +
+        '<button id="mp-hw-copy" style="background:rgba(255,107,0,.18);border:1.5px solid rgba(255,107,0,.5);color:#ffb347;padding:7px 22px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.5px;transition:all .2s;">📋 Copy code</button>' +
       '</div>' +
-      '<div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:20px;">⏳ Termina en: <span id="mp-hw-cd"></span></div>' +
-      '<a href="/collections/all" id="mp-hw-cta" style="display:block;padding:17px 24px;background:linear-gradient(90deg,#ff6b00,#e65100);color:#fff;border-radius:12px;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;letter-spacing:.3px;box-shadow:0 8px 28px rgba(255,107,0,.45);transition:transform .18s,box-shadow .18s;">🛒 Ver ofertas Halloween →</a>' +
-      '<p style="margin:14px 0 0;font-size:11px;color:rgba(255,255,255,.25);">Solo hasta el 31 de octubre · No acumulable con otras ofertas</p>';
+      '<div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:20px;">⏳ Expires in: <span id="mp-hw-cd"></span></div>' +
+      '<a href="/collections/all" id="mp-hw-cta" style="display:block;padding:17px 24px;background:linear-gradient(90deg,#ff6b00,#e65100);color:#fff;border-radius:12px;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;letter-spacing:.3px;box-shadow:0 8px 28px rgba(255,107,0,.45);transition:transform .18s,box-shadow .18s;">🛒 Shop Halloween Deals →</a>' +
+      '<p style="margin:14px 0 0;font-size:11px;color:rgba(255,255,255,.25);">Valid through October 31 · Cannot be combined with other offers</p>';
 
     overlay.appendChild(box);
     document.body.appendChild(overlay);
@@ -234,11 +299,11 @@
     copyBtn.addEventListener('click', function () {
       var btn = this;
       navigator.clipboard.writeText('SPOOKY20').then(function () {
-        btn.textContent = '✓ ¡Copiado!';
+        btn.textContent = '✓ Copied!';
         btn.style.color = '#4caf50';
         btn.style.borderColor = 'rgba(76,175,80,.5)';
         setTimeout(function () {
-          btn.textContent = '📋 Copiar código';
+          btn.textContent = '📋 Copy code';
           btn.style.color = '#ffb347';
           btn.style.borderColor = 'rgba(255,107,0,.5)';
         }, 2200);
@@ -248,7 +313,7 @@
           range.selectNode(document.getElementById('mp-hw-code'));
           window.getSelection().removeAllRanges();
           window.getSelection().addRange(range);
-          btn.textContent = '✓ ¡Seleccionado!';
+          btn.textContent = '✓ Selected!';
         } catch (err) {}
       });
     });
@@ -274,7 +339,7 @@
         b.style.opacity = '0';
         setTimeout(function () { if (b.parentNode) b.remove(); }, 450);
       });
-      localStorage.setItem('mp_halloween_shown', '1');
+      localStorage.setItem('mp_halloween_shown', String(Date.now())); // 24h cooldown
     }
 
     closeBtn.addEventListener('click', hwDismiss);
@@ -290,8 +355,9 @@
     addCountdown();
     addUrgency();
     addStickyBuy();
+    addFreeShipping();
     startToasts();
-    setTimeout(createHalloweenPopup, 22000);
+    setTimeout(createHalloweenPopup, 8000); // 8s (was 22s)
   }
 
   if (document.readyState === 'loading') {
