@@ -53,6 +53,50 @@
       "block_order": ["loox_reviews_loox_dynamic_section_EcqVAJ"],
       "settings": {}
     },
+    "detail_photos": {
+      "type": "mt-product-detail-grid",
+      "blocks": {
+        "photo_ship": {
+          "type": "photo",
+          "settings": {
+            "icon": "🚚",
+            "label": "Free Shipping",
+            "sublabel": "On all orders over $50"
+          }
+        },
+        "photo_guarantee": {
+          "type": "photo",
+          "settings": {
+            "icon": "🔄",
+            "label": "30-Day Guarantee",
+            "sublabel": "Full refund, no questions asked"
+          }
+        },
+        "photo_returns": {
+          "type": "photo",
+          "settings": {
+            "icon": "📦",
+            "label": "Easy Returns",
+            "sublabel": "Hassle-free return process"
+          }
+        },
+        "photo_secure": {
+          "type": "photo",
+          "settings": {
+            "icon": "🔒",
+            "label": "Secure Checkout",
+            "sublabel": "256-bit SSL encryption"
+          }
+        }
+      },
+      "block_order": ["photo_ship", "photo_guarantee", "photo_returns", "photo_secure"],
+      "settings": {
+        "heading": "Why Customers Love It",
+        "background_color": "#f9f9f9",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
     "trust_badges_mp": {
       "type": "section-trust-badges",
       "blocks": {
@@ -180,6 +224,7 @@
     "urgency_bar",
     "sticky_atc",
     "loox_reviews_near_atc",
+    "detail_photos",
     "trust_badges_mp",
     "product_tabs",
     "complementary",
