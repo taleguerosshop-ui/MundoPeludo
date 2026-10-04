@@ -33,6 +33,14 @@
         "show_installments": true
       }
     },
+    "mt_mini_reviews": {
+      "type": "mt-mini-reviews",
+      "settings": {
+        "max_reviews": 3,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
     "urgency_bar": {
       "type": "product-urgency",
       "settings": {}
@@ -227,6 +235,7 @@
   },
   "order": [
     "main",
+    "mt_mini_reviews",
     "urgency_bar",
     "sticky_atc",
     "loox_reviews_near_atc",

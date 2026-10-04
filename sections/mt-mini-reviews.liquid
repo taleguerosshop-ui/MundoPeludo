@@ -1,0 +1,258 @@
+{%- liquid
+  assign mr_avg   = product.metafields.loox.avg_rating.value | default: '' | strip
+  assign mr_count = product.metafields.loox.num_reviews.value | default: 0
+  assign mr_feed  = product.metafields.loox.review_feed.value
+  assign mr_max   = section.settings.max_reviews | default: 3
+-%}
+
+{%- unless mr_avg == blank or mr_count == 0 -%}
+
+{%- assign mr_avg_f  = mr_avg | plus: 0.0 -%}
+{%- assign mr_full   = mr_avg_f | floor -%}
+{%- assign mr_dec    = mr_avg_f | minus: mr_full -%}
+{%- if mr_dec >= 0.5 -%}{%- assign mr_half = 1 -%}{%- else -%}{%- assign mr_half = 0 -%}{%- endif -%}
+{%- assign mr_empty  = 5 | minus: mr_full | minus: mr_half -%}
+
+<div id="mt-mr-{{ section.id }}" class="mt-mr">
+  <div class="mt-mr__inner">
+
+    <!-- ── Summary bar ── -->
+    <div class="mt-mr__summary">
+      <div class="mt-mr__stars-row" aria-label="{{ mr_avg }} de 5 estrellas">
+        {%- for i in (1..mr_full) -%}
+          <svg class="mt-mr__star mt-mr__star--on"  viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1 12.39 6.84 18 7.64l-3.97 3.87 .94 5.49L10 14.27l-4.97 2.73.94-5.49L2 7.64l5.61-.8z"/></svg>
+        {%- endfor -%}
+        {%- if mr_half == 1 -%}
+          <svg class="mt-mr__star mt-mr__star--half" viewBox="0 0 20 20" aria-hidden="true">
+            <defs><linearGradient id="mrhalf{{ section.id }}" x1="0" x2="1" y1="0" y2="0"><stop offset="50%" stop-color="var(--mr-star-on)"/><stop offset="50%" stop-color="var(--mr-star-off)"/></linearGradient></defs>
+            <path fill="url(#mrhalf{{ section.id }})" d="M10 1 12.39 6.84 18 7.64l-3.97 3.87 .94 5.49L10 14.27l-4.97 2.73.94-5.49L2 7.64l5.61-.8z"/>
+          </svg>
+        {%- endif -%}
+        {%- for i in (1..mr_empty) -%}
+          <svg class="mt-mr__star mt-mr__star--off" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1 12.39 6.84 18 7.64l-3.97 3.87 .94 5.49L10 14.27l-4.97 2.73.94-5.49L2 7.64l5.61-.8z"/></svg>
+        {%- endfor -%}
+      </div>
+      <strong class="mt-mr__avg">{{ mr_avg }}</strong>
+      <span class="mt-mr__sep" aria-hidden="true">&bull;</span>
+      <span class="mt-mr__count">{{ mr_count }} reseñas verificadas</span>
+      <span class="mt-mr__trust-pill">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+          <path d="M2 5 4 7 8 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Compra verificada
+      </span>
+    </div>
+
+    <!-- ── Review cards ── -->
+    {%- if mr_feed != blank and mr_feed.reviews != blank -%}
+    <div class="mt-mr__cards">
+      {%- assign mr_shown = 0 -%}
+      {%- for review in mr_feed.reviews -%}
+        {%- if mr_shown >= mr_max -%}{%- break -%}{%- endif -%}
+        {%- assign mr_shown = mr_shown | plus: 1 -%}
+        {%- assign rc_full  = review.rating | floor -%}
+        {%- assign rc_empty = 5 | minus: rc_full -%}
+        <article class="mt-mr__card">
+          <div class="mt-mr__card-head">
+            {%- if review.photo != blank -%}
+              <img src="{{ review.photo }}" alt="{{ review.author | escape }}" class="mt-mr__avatar" width="42" height="42" loading="lazy">
+            {%- endif -%}
+            <div class="mt-mr__card-meta">
+              <span class="mt-mr__author">{{ review.author }}</span>
+              <div class="mt-mr__card-stars">
+                {%- for i in (1..rc_full) -%}
+                  <svg class="mt-mr__star mt-mr__star--on" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .8 9.91 5.3 14.78 5.7l-3.57 3.1 1.06 4.77L8 11.07l-4.27 2.5 1.06-4.77L1.22 5.7 6.09 5.3z"/></svg>
+                {%- endfor -%}
+                {%- for i in (1..rc_empty) -%}
+                  <svg class="mt-mr__star mt-mr__star--off" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .8 9.91 5.3 14.78 5.7l-3.57 3.1 1.06 4.77L8 11.07l-4.27 2.5 1.06-4.77L1.22 5.7 6.09 5.3z"/></svg>
+                {%- endfor -%}
+              </div>
+            </div>
+          </div>
+          <p class="mt-mr__review-text">&ldquo;{{ review.review | truncate: 115 }}&rdquo;</p>
+          {%- if review.verified -%}
+          <span class="mt-mr__verif">
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+              <circle cx="5" cy="5" r="5" fill="currentColor" opacity=".12"/>
+              <path d="M2.5 5 4.2 6.7 7.5 3.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Compra verificada
+          </span>
+          {%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<style>
+  #mt-mr-{{ section.id }} {
+    --mr-star-on:   #F59E0B;
+    --mr-star-off:  #D1D5DB;
+    --mr-green:     #16A34A;
+    --mr-border:    rgba(0,0,0,.07);
+    --mr-card-bg:   #ffffff;
+    --mr-text:      #111827;
+    --mr-muted:     #6B7280;
+    --mr-bg:        #F8F9FA;
+    padding-block: {{ section.settings.padding_top }}px {{ section.settings.padding_bottom }}px;
+    background: var(--mr-bg);
+    border-top: 1px solid var(--mr-border);
+    border-bottom: 1px solid var(--mr-border);
+  }
+  @media (prefers-color-scheme: dark) {
+    #mt-mr-{{ section.id }} {
+      --mr-star-off: #4B5563;
+      --mr-border:   rgba(255,255,255,.08);
+      --mr-card-bg:  #1F2937;
+      --mr-text:     #F9FAFB;
+      --mr-muted:    #9CA3AF;
+      --mr-bg:       #111827;
+    }
+  }
+  .mt-mr__inner {
+    max-width: var(--page-width, 1280px);
+    margin-inline: auto;
+    padding-inline: max(16px, 4vw);
+  }
+  /* Summary bar */
+  .mt-mr__summary {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px 10px;
+    margin-bottom: 14px;
+  }
+  .mt-mr__stars-row { display: flex; gap: 2px; }
+  .mt-mr__star { width: 16px; height: 16px; }
+  .mt-mr__star--on  { fill: var(--mr-star-on); }
+  .mt-mr__star--off { fill: var(--mr-star-off); }
+  .mt-mr__avg  { font-size: .9375rem; font-weight: 700; color: var(--mr-text); }
+  .mt-mr__sep  { color: var(--mr-muted); }
+  .mt-mr__count { font-size: .8125rem; color: var(--mr-muted); }
+  .mt-mr__trust-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: .6875rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    color: var(--mr-green);
+    background: rgba(22,163,74,.08);
+    border: 1px solid rgba(22,163,74,.2);
+    padding: 3px 9px;
+    border-radius: 100px;
+  }
+  /* Cards */
+  .mt-mr__cards {
+    display: grid;
+    grid-template-columns: repeat({{ mr_max }}, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 749px) {
+    .mt-mr__cards {
+      grid-template-columns: repeat({{ mr_max }}, 240px);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 6px;
+      scrollbar-width: none;
+    }
+    .mt-mr__cards::-webkit-scrollbar { display: none; }
+  }
+  .mt-mr__card {
+    background: var(--mr-card-bg);
+    border: 1px solid var(--mr-border);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    scroll-snap-align: start;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    transition: box-shadow .2s;
+  }
+  .mt-mr__card:hover { box-shadow: 0 3px 10px rgba(0,0,0,.08); }
+  .mt-mr__card-head { display: flex; align-items: center; gap: 9px; }
+  .mt-mr__avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--mr-border);
+  }
+  .mt-mr__card-meta { flex: 1; min-width: 0; }
+  .mt-mr__author {
+    display: block;
+    font-size: .8125rem;
+    font-weight: 700;
+    color: var(--mr-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mt-mr__card-stars { display: flex; gap: 1px; margin-top: 3px; }
+  .mt-mr__card-stars .mt-mr__star { width: 12px; height: 12px; }
+  .mt-mr__review-text {
+    font-size: .8125rem;
+    line-height: 1.55;
+    color: var(--mr-muted);
+    margin: 0;
+    flex: 1;
+    font-style: italic;
+  }
+  .mt-mr__verif {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: .6875rem;
+    font-weight: 600;
+    color: var(--mr-green);
+  }
+</style>
+
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "Reseñas mini ATC",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "range",
+      "id": "max_reviews",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "Número de reseñas"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 20,
+      "label": "Espaciado superior (px)"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 20,
+      "label": "Espaciado inferior (px)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reseñas mini ATC"
+    }
+  ]
+}
+{% endschema %}
